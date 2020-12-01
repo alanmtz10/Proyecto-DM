@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Proyecto1</string>
+    <string name="app_name">ReAn</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">ReAn</string>
+    <string name="nav_header_subtitle">reporteAnomalias@outlook.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Cerrar sesión</string>
 
@@ -11,10 +11,36 @@
     <string name="menu_gallery">Crear reporte</string>
     <string name="menu_slideshow">Ver reportes</string>
 
-    <string name="bienvenido">Iniciar sesión</string>
-    <string name="usuario">Ingrese su usuario</string>
-    <string name="password">Ingrese su password</string>
+    <string name="inicio">Bienvenido</string>
+
+    <string name="bienvenido">ReAn</string>
+    <string name="usuario">Usuario</string>
+    <string name="admin">Administrador</string>
     <string name="cerrar">Cerrar</string>
-    <string name="ingresar">Ingresar</string>
+    <string name="ingresar">Iniciar Sesión</string>
+    <string name="registrar">Registrate</string>
+    <string name="registro">Registro</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="mensaje">¿No tienes cuenta?</string>
+
+    <string name="nombre">Nombre Completo</string>
+    <string name="us">Nombre de Usuario</string>
+    <string name="edad">Edad</string>
+    <string name="direccion">Dirección</string>
+    <string name="telefono">Teléfono</string>
+    <string name="correo">Correo Electrónico</string>
+    <string name="pw">Contraseña</string>
+
+    <string name="listar">Listar Reportes</string>
+
+    <string name="reporte">Reporte</string>
+    <string name="id">Id</string>
+    <string name="im">imagen</string>
+    <string name="anomalia">Anomalía</string>
+    <string name="ubicacion">Ubicación</string>
+    <string name="fecha">Fecha</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="slogan">"Mejorando nuestras calles"</string>
 
 </resources>
