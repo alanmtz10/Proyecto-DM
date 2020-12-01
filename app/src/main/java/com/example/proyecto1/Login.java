@@ -42,6 +42,16 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        
+        Button btnReg;
+        btnReg= findViewById(R.id.btnRegistrar);
+        btnReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(),Registro.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }
