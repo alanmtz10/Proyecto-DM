@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.proyecto1.ui.listar.ListarViewModel;
+
 import com.example.proyecto1.R;
 
 public class ListarFragment extends Fragment {
@@ -32,8 +34,8 @@ public class ListarFragment extends Fragment {
         return root;
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
-        getActivity().getMenuInflater().inflate(R.menu.menu_admin,menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getActivity().getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 }

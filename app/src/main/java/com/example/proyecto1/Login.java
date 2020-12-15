@@ -18,15 +18,15 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.activity_login);
 
         Button btnSalir;
-        btnSalir=findViewById(R.id.btnCerrar);
+        btnSalir = findViewById(R.id.btnCerrar);
         btnSalir.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View v) {
-                Toast.makeText(Login.this,"¡Vuelve pronto!", Toast.LENGTH_LONG).show();
+                Toast.makeText(Login.this, "¡Vuelve pronto!", Toast.LENGTH_LONG).show();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     finishAffinity();
                 }
@@ -34,7 +34,7 @@ public class Login extends AppCompatActivity {
         });
 
         Button btnAcceso;
-        btnAcceso=findViewById(R.id.btnIngresar);
+        btnAcceso = findViewById(R.id.btnIngresar);
         btnAcceso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,13 +42,13 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        
+
         Button btnReg;
-        btnReg= findViewById(R.id.btnRegistrar);
+        btnReg = findViewById(R.id.btnRegistrar);
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),Registro.class);
+                Intent intent = new Intent(v.getContext(), Registro.class);
                 startActivity(intent);
             }
         });
