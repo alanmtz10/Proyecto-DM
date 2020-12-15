@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "40387293567",
+    "project_id": "rean-dd3b1",
+    "storage_bucket": "rean-dd3b1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40387293567:android:8719ae1c74bbfd8ddd6a4a",
+        "android_client_info": {
+          "package_name": "com.example.proyecto1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40387293567-6aianvr4pk6rcbpta9epmsjo4b3c3nrn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.proyecto1",
+            "certificate_hash": "69947623a0aaaca2355f402635d8c3212e0fc357"
+          }
+        },
+        {
+          "client_id": "40387293567-c0dtos4v5v0vha88397s4uitio4755nh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAitKt16vSfdvmUb3A4rUznZtaWVKK6LRU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40387293567-c0dtos4v5v0vha88397s4uitio4755nh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
