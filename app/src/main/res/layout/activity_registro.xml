@@ -37,6 +37,7 @@
                 app:srcCompat="@drawable/user" />
 
             <ToggleButton
+                android:id="@+id/tBTipoR"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -48,7 +49,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:hint="@string/nombre">
 
@@ -62,7 +63,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:hint="@string/direccion">
 
@@ -81,12 +82,12 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="130dp"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:hint="@string/edad">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/EdadR"
+                        android:id="@+id/eTEdadR"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"></com.google.android.material.textfield.TextInputEditText>
@@ -94,7 +95,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:hint="@string/telefono">
 
@@ -110,7 +111,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:hint="@string/us">
 
@@ -124,7 +125,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:hint="@string/correo">
 
@@ -138,7 +139,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:hint="@string/pw">
 
