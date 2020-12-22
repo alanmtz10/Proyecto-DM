@@ -7,13 +7,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +30,7 @@ public class Login extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
-
+    EditText correo, contra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,8 @@ public class Login extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference();
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        iniciarComp();
 
         Button btnSalir;
         btnSalir = findViewById(R.id.btnCerrar);
@@ -56,8 +63,13 @@ public class Login extends AppCompatActivity {
         btnAcceso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
-                startActivity(intent);
+                if (correo.getText().toString().equals("") || contra.getText().toString().equals("")){
+                    Toast.makeText(Login.this,"Campos incompletos",Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    iniciarSesion();
+                }
             }
         });
 
@@ -72,6 +84,11 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    public void iniciarComp(){
+        correo = findViewById(R.id.eTUsuario);
+        contra = findViewById(R.id.eTPassword);
+    }
+
     public void updateUI(FirebaseUser currentUser){
         if(currentUser != null){
             Intent intent = new Intent(this,MainActivity.class);
@@ -80,10 +97,29 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    @Override
     public void onStart(){
         super.onStart();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         updateUI(currentUser);
     }
 
+    public void iniciarSesion(){
+        String email = correo.getText().toString();
+        String password = contra.getText().toString();
+        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this,new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    updateUI(user);
+                }
+                else
+                {
+                    Toast.makeText(Login.this,"Autenticación inválida",Toast.LENGTH_LONG).show();
+                    updateUI(null);
+                }
+            }
+        });
+    }
 }

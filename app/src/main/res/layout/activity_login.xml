@@ -38,16 +38,6 @@
                 android:contentDescription="@string/im"
                 app:srcCompat="@drawable/user" />
 
-            <ToggleButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textOff="@string/usuario"
-                android:textOn="@string/admin">
-
-            </ToggleButton>
-
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,7 +48,7 @@
                     android:id="@+id/eTUsuario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName">
+                    android:inputType="textEmailAddress">
 
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>

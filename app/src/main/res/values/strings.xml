@@ -42,5 +42,6 @@
     <string name="aceptar">Aceptar</string>
     <string name="eliminar">Eliminar</string>
     <string name="slogan">"Mejorando nuestras calles"</string>
+    <string name="cerrarS">Cerrar Sesión</string>
 
 </resources>

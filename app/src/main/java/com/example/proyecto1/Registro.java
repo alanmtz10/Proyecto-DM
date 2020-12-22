@@ -17,6 +17,7 @@ import com.google.android.gms.common.data.DataBufferSafeParcelable;
 import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,6 +30,7 @@ import java.util.Map;
 public class Registro extends AppCompatActivity  {
 
     private FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
     EditText nom,dir,edad,tel,us,correo,contrasenia;
@@ -42,6 +44,8 @@ public class Registro extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
+        FirebaseApp.initializeApp(this);
+        firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -95,6 +99,7 @@ public class Registro extends AppCompatActivity  {
         }
     }
 
+    @Override
     public void onStart(){
         super.onStart();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
