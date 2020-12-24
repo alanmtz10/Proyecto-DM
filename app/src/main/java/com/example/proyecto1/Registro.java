@@ -27,16 +27,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Registro extends AppCompatActivity  {
+public class Registro extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
-    EditText nom,dir,edad,tel,us,correo,contrasenia;
+    EditText nom, dir, edad, tel, us, correo, contrasenia;
     Button btnAceptar, btnCancelar;
     ToggleButton btnTipo;
-
 
 
     @Override
@@ -47,7 +46,7 @@ public class Registro extends AppCompatActivity  {
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = firebaseDatabase.getReference();
 
         iniciarComp();
 
@@ -55,14 +54,12 @@ public class Registro extends AppCompatActivity  {
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (nom.getText().toString().equals("") || dir.getText().toString().equals("")||
+                if (nom.getText().toString().equals("") || dir.getText().toString().equals("") ||
                         edad.getText().toString().equals("") || tel.getText().toString().equals("") ||
                         us.getText().toString().equals("") || correo.getText().toString().equals("") ||
-                        contrasenia.getText().toString().equals("")){
+                        contrasenia.getText().toString().equals("")) {
                     Toast.makeText(Registro.this, "Campos incompletos", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                } else {
                     registrarUsuario();
                 }
             }
@@ -91,48 +88,49 @@ public class Registro extends AppCompatActivity  {
         btnTipo = findViewById(R.id.tBTipoR);
     }
 
-    public void updateUI(FirebaseUser currentUser){
-        if(currentUser != null){
-            Intent intent = new Intent(this,MainActivity.class);
+    public void updateUI(FirebaseUser currentUser) {
+        if (currentUser != null) {
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
         }
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         updateUI(currentUser);
     }
 
-    public void registrarUsuario(){
+    public void registrarUsuario() {
         String email = correo.getText().toString();
         String password = correo.getText().toString();
         String tipo = btnTipo.getText().toString();
-        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     String id = firebaseAuth.getCurrentUser().getUid();
 
                     Map<String, Object> map = new HashMap<>();
-                    map.put("nombre",nom);
-                    map.put("usuario",us);
-                    map.put("correo",correo);
-                    map.put("contrasenia",contrasenia);
-                    map.put("tipo",tipo);
-                    map.put("direccion",dir);
-                    map.put("edad",edad);
-                    map.put("telefono",tel);
+                    map.put("nombre", nom.getText().toString());
+                    map.put("usuario", us.getText().toString());
+                    map.put("correo", correo.getText().toString());
+                    map.put("contrasenia", contrasenia.getText().toString());
+                    map.put("tipo", tipo);
+                    map.put("direccion", dir.getText().toString());
+                    map.put("edad", edad.getText().toString());
+                    map.put("telefono", tel.getText().toString());
 
                     databaseReference.child("Usuarios").child(id).setValue(map);
+
+                    databaseReference.child("Usuarios");
+
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     updateUI(user);
-                }
-                else
-                {
-                    Toast.makeText(Registro.this,"No se pudo registrar el usuario",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(Registro.this, "No se pudo registrar el usuario", Toast.LENGTH_LONG).show();
                     updateUI(null);
                 }
             }
