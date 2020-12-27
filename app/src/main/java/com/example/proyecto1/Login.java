@@ -107,7 +107,8 @@ public class Login extends AppCompatActivity {
     public void iniciarSesion(){
         String email = correo.getText().toString();
         String password = contra.getText().toString();
-        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this,new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){

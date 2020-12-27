@@ -12,9 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.example.proyecto1.databinding.ActivityMainBinding;
-import com.google.android.gms.common.data.DataBufferSafeParcelable;
-import com.google.android.gms.dynamic.IFragmentWrapper;
+import com.example.proyecto1.ui.fbbd.Usuarios;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -105,7 +103,7 @@ public class Registro extends AppCompatActivity {
 
     public void registrarUsuario() {
         String email = correo.getText().toString();
-        String password = correo.getText().toString();
+        String password = contrasenia.getText().toString();
         String tipo = btnTipo.getText().toString();
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -113,19 +111,16 @@ public class Registro extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     String id = firebaseAuth.getCurrentUser().getUid();
 
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("nombre", nom.getText().toString());
-                    map.put("usuario", us.getText().toString());
-                    map.put("correo", correo.getText().toString());
-                    map.put("contrasenia", contrasenia.getText().toString());
-                    map.put("tipo", tipo);
-                    map.put("direccion", dir.getText().toString());
-                    map.put("edad", edad.getText().toString());
-                    map.put("telefono", tel.getText().toString());
-
-                    databaseReference.child("Usuarios").child(id).setValue(map);
-
-                    databaseReference.child("Usuarios");
+                    Usuarios usu= new Usuarios();
+                    usu.setNombre(nom.getText().toString());
+                    usu.setContrasenia(password);
+                    usu.setCorreo(email);
+                    usu.setDireccion(dir.getText().toString());
+                    usu.setEdad(edad.getText().toString());
+                    usu.setTelefono(tel.getText().toString());
+                    usu.setTipo(tipo);
+                    usu.setUsuario(us.getText().toString());
+                    databaseReference.child("Usuarios").child(id).setValue(usu);
 
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     updateUI(user);

@@ -10,6 +10,8 @@
     <string name="menu_home">Inicio</string>
     <string name="menu_gallery">Crear reporte</string>
     <string name="menu_slideshow">Ver reportes</string>
+    <string name="menu_usuarios">Ver usuarios</string>
+
 
     <string name="inicio">Bienvenido</string>
 

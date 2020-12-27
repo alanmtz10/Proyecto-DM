@@ -22,4 +22,10 @@
         android:name="com.example.proyecto1.ui.listar.ListarFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_listar" />
+
+    <fragment
+        android:id="@+id/nav_usuario"
+        android:name="com.example.proyecto1.ui.usuarios.UsuariosFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_usuarios" />
 </navigation>
