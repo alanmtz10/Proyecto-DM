@@ -38,7 +38,7 @@
     <string name="reporte">Reporte</string>
     <string name="id">Id</string>
     <string name="im">imagen</string>
-    <string name="anomalia">Anomalía</string>
+    <string name="anomalia">Descripción</string>
     <string name="ubicacion">Ubicación</string>
     <string name="fecha">Fecha</string>
     <string name="aceptar">Aceptar</string>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name="opciones">
+        <item>Elige una anomalia</item>
+        <item>Accidente automovilistico</item>
+        <item>Baches</item>
+        <item>Alumbrado publico</item>
+        <item>Tuberia rota</item>
+        <item>Inundación</item>
+    </string-array>
+
+</resources>
