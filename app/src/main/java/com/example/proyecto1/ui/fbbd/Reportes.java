@@ -7,8 +7,9 @@ public class Reportes {
     private String ubicacion;
     private String fecha;
     private String usuario;
+    private String status;
 
-    public void Reportes(){
+    public void Reportes() {
 
     }
 
@@ -50,5 +51,13 @@ public class Reportes {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
