@@ -8,6 +8,7 @@ public class Reportes {
     private String fecha;
     private String usuario;
     private String status;
+    private String photoPath;
 
     public void Reportes() {
 
@@ -59,5 +60,13 @@ public class Reportes {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 }
