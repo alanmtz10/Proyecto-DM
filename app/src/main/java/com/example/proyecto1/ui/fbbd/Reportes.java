@@ -69,4 +69,8 @@ public class Reportes {
     public void setPhotoPath(String photoPath) {
         this.photoPath = photoPath;
     }
+
+    public String toString(){
+        return anomalia+" "+photoPath+" "+fecha;
+    }
 }

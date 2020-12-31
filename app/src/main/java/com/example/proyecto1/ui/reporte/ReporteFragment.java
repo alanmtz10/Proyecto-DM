@@ -205,6 +205,7 @@ public class ReporteFragment extends Fragment implements AdapterView.OnItemSelec
 
 
                         databaseReference.child("Reportes").child(id).setValue(reporte);
+                        limpiar();
 
                         Toast.makeText(getContext(), "Se almaceno el reporte", Toast.LENGTH_LONG).show();
 
@@ -290,7 +291,7 @@ public class ReporteFragment extends Fragment implements AdapterView.OnItemSelec
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
-                    ubicacion.setText("lat: " + location.getLatitude() + " lon: " + location.getLongitude());
+                    ubicacion.setText("lat: " + location.getLatitude() + "      lon: " + location.getLongitude());
                 }
             }
         });
@@ -303,7 +304,7 @@ public class ReporteFragment extends Fragment implements AdapterView.OnItemSelec
             imagenCamara.setImageURI(photoUri);
             img = currentPhotoPath;
 
-            Toast.makeText(getContext(), "Se genro la foto", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Se genero la foto", Toast.LENGTH_LONG).show();
 
         } else {
             Toast.makeText(getContext(), "Error al tomar foto", Toast.LENGTH_LONG).show();

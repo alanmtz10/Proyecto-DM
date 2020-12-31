@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvInfoReporte"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/reporte"
+            android:textSize="30sp"
+            android:gravity="center"/>
+
+        <ImageView
+            android:id="@+id/ivFotoReporte"
+            android:layout_width="196dp"
+            android:layout_height="171dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_menu_camera"
+            android:contentDescription="@string/im"/>
+
+    </LinearLayout>
+
+</ScrollView>
