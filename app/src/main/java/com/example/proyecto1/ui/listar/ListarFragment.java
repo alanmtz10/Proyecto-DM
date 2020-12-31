@@ -59,7 +59,7 @@ public class ListarFragment extends Fragment {
     ListView lReportes;
 
     private FirebaseStorage storage;
-    StorageReference storageReference;
+    StorageReference storageReference, imageref;
 
     Long img;
 
@@ -147,10 +147,10 @@ public class ListarFragment extends Fragment {
 
     public void descargarImg () throws IOException {
 
-        storageReference.child(reporteSelected.getPhotoPath()+ ".jpg");
+        imageref = storageReference.child(reporteSelected.getPhotoPath()+ ".jpg");
         File localFile = File.createTempFile("images","jpg");
 
-        storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>(){
+        imageref.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>(){
 
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
