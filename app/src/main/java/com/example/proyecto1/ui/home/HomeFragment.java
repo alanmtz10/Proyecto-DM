@@ -17,11 +17,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.proyecto1.Login;
 import com.example.proyecto1.R;
+import com.example.proyecto1.ui.fbbd.Usuarios;
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.w3c.dom.Text;
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private HomeViewModel homeViewModel;
+
+    TextView usuario;
 
     FirebaseAuth firebaseAuth;
 
@@ -37,9 +42,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             public void onChanged(@Nullable String s) {}
         });
 
+        usuario = root.findViewById(R.id.usuarioHome);
+
         firebaseAuth=FirebaseAuth.getInstance();
         btnCerrar = root.findViewById(R.id.btnCerrarS);
         btnCerrar.setOnClickListener(this);
+
         return root;
 
     }
