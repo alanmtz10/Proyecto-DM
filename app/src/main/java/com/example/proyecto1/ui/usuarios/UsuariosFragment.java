@@ -2,6 +2,8 @@ package com.example.proyecto1.ui.usuarios;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,11 +15,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.proyecto1.R;
 import com.example.proyecto1.ui.fbbd.Usuarios;
+import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -69,19 +77,62 @@ public class UsuariosFragment extends Fragment {
         lUsuarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 usuarioSelected=(Usuarios)parent.getItemAtPosition(position);
                 ArrayList<String> ListData = new ArrayList<>();
                 String item = "";
-                item += "Id: ["+ "]\r\n";
-                item += "Nombre: ["+ usuarioSelected.getNombre()+"]\r\n";
-                item += "Nombre de usuario: ["+ usuarioSelected.getUsuario()+"]\r\n";
-                item += "Tipo de usuario: ["+ usuarioSelected.getTipo()+"]\r\n";
-                item += "Correo: ["+ usuarioSelected.getCorreo()+"]\r\n";
-                item += "Contraseña: ["+ usuarioSelected.getContrasenia()+"]\r\n";
-                item += "Dirección: ["+ usuarioSelected.getDireccion()+"]\r\n";
-                item += "Edad: ["+ usuarioSelected.getEdad()+"]\r\n";
-                item += "Teléfono: ["+ usuarioSelected.getTelefono()+"]\r\n";
+                item += "Id: "+usuarioSelected.getId()+ "\r\n";
+                item += "Nombre: "+ usuarioSelected.getNombre()+"\r\n";
+                item += "Nombre de usuario: "+ usuarioSelected.getUsuario()+"\r\n";
+                item += "Tipo de usuario: "+ usuarioSelected.getTipo()+"\r\n";
+                item += "Correo: "+ usuarioSelected.getCorreo()+"\r\n";
+                item += "Contraseña: "+ usuarioSelected.getContrasenia()+"\r\n";
+                item += "Dirección: "+ usuarioSelected.getDireccion()+"\r\n";
+                item += "Edad: "+ usuarioSelected.getEdad()+"\r\n";
+                item += "Teléfono: "+ usuarioSelected.getTelefono()+"\r\n";
                 ListData.add(item);
+                View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_reporte, null);
+                ((TextView) dialogView.findViewById(R.id.tvInfoReporte)).setText(item);
+                ImageView ivImagen = dialogView.findViewById(R.id.ivFotoReporte);
+                AlertDialog.Builder dialogo = new AlertDialog.Builder(getContext());
+                dialogo.setTitle("Usuario");
+                dialogo.setView(dialogView);
+                dialogo.setNeutralButton("Aceptar", null);
+                dialogo.setPositiveButton("Cambiar Rango", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Usuarios u = new Usuarios();
+                        u.setId(usuarioSelected.getId());
+                        u.setNombre(usuarioSelected.getNombre());
+                        u.setUsuario(usuarioSelected.getUsuario());
+                        u.setCorreo(usuarioSelected.getCorreo());
+                        u.setContrasenia(usuarioSelected.getContrasenia());
+                        u.setDireccion(usuarioSelected.getDireccion());
+                        u.setEdad(usuarioSelected.getEdad());
+                        u.setTelefono(usuarioSelected.getTelefono());
+                        if (usuarioSelected.getTipo().toUpperCase().equals("USUARIO")){
+                            u.setTipo("Administrador");
+                        }
+                        else{
+                            u.setTipo("Usuario");
+                        }
+                        databaseReference.child("Usuarios").child(u.getId()).setValue(u);
+                        Toast.makeText(getContext(),"Rango Actualizado",Toast.LENGTH_LONG).show();
+
+                    }
+                });
+                dialogo.setNegativeButton("Eliminar Usuario", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Usuarios u = new Usuarios();
+                        u.setId(usuarioSelected.getId());
+                        databaseReference.child("Usuarios").child(u.getId()).removeValue();
+                        Toast.makeText(getContext(),"Usuario Eliminado",Toast.LENGTH_LONG).show();
+
+                    }
+                });
+                dialogo.show();
+
             }
         });
 

@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Usuarios {
-    private String  nombre;
+    private String id;
+    private String nombre;
     private String usuario;
     private String correo;
     private String contrasenia;
@@ -78,6 +79,18 @@ public class Usuarios {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String toString(){
+        return nombre+" \n"+tipo;
     }
 
 }

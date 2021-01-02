@@ -1,6 +1,7 @@
 package com.example.proyecto1.ui.listar;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.proyecto1.ui.fbbd.Reportes;
+import com.example.proyecto1.ui.fbbd.Usuarios;
 import com.example.proyecto1.ui.listar.ListarViewModel;
 
 import com.example.proyecto1.R;
@@ -30,6 +32,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,8 +49,11 @@ import java.util.List;
 
 public class ListarFragment extends Fragment {
 
+    FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+
+    String tipoUs;
 
     List<Reportes> ListaReportes = new ArrayList<Reportes>();
 
@@ -81,6 +87,26 @@ public class ListarFragment extends Fragment {
         FirebaseApp.initializeApp(getContext());
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        String UID=currentUser.getUid();
+        databaseReference.child("Usuarios").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Usuarios usuario = snapshot.getValue(Usuarios.class);
+                if (usuario.getTipo().equals("Usuario")){
+                    tipoUs="USUARIO";
+                }else{
+                    tipoUs="ADMINISTRADOR";
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference("images");
@@ -95,12 +121,12 @@ public class ListarFragment extends Fragment {
                 reporteSelected = (Reportes) parent.getItemAtPosition(position);
                 ArrayList<String> ListData = new ArrayList<>();
                 String item = "";
-                        item += "Id: ["+ reporteSelected.getPhotoPath()+"]\r\n";
-                        item += "Anomalía: ["+ reporteSelected.getAnomalia()+"]\r\n";
-                        item += "Descripción: ["+ reporteSelected.getDescripcion()+"]\r\n";
-                        item += "Fecha: ["+ reporteSelected.getFecha()+"]\r\n";
-                        item += "Ubicación: ["+ reporteSelected.getUbicacion()+"]\r\n";
-                        item += "Estado: ["+ reporteSelected.getStatus()+"]\r\n";
+                        item += "Id:    "+ reporteSelected.getPhotoPath()+"\r\n";
+                        item += "Anomalía: "+ reporteSelected.getAnomalia()+"\r\n";
+                        item += "Descripción: "+ reporteSelected.getDescripcion()+"\r\n";
+                        item += "Fecha:     "+ reporteSelected.getFecha()+"\r\n";
+                        item += "Ubicación: "+ reporteSelected.getUbicacion()+"\r\n";
+                        item += "Estado: "+ reporteSelected.getStatus()+"\r\n";
                         ListData.add(item);
 
                 View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_reporte, null);
@@ -110,15 +136,44 @@ public class ListarFragment extends Fragment {
                     descargarImg();
 
                 }catch (Exception e){
-                    //Toast.makeText(getContext(),"Error con la foto",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"Error con la foto",Toast.LENGTH_LONG).show();
                 }
                 //cargarImagen(imagenes.get(position), ivImagen);
                 AlertDialog.Builder dialogo = new AlertDialog.Builder(getContext());
                 dialogo.setTitle("Reportes");
                 dialogo.setView(dialogView);
-                dialogo.setPositiveButton("Aceptar", null);
+                if (tipoUs.equals("USUARIO")){
+                    dialogo.setPositiveButton("Aceptar", null);
+                }
+                else
+                {
+                    dialogo.setNeutralButton("Aceptar", null);
+                    dialogo.setPositiveButton("Atender Reporte", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Reportes r = new Reportes();
+                            r.setAnomalia(reporteSelected.getAnomalia());
+                            r.setDescripcion(reporteSelected.getDescripcion());
+                            r.setUbicacion(reporteSelected.getUbicacion());
+                            r.setFecha(reporteSelected.getFecha());
+                            r.setPhotoPath(reporteSelected.getPhotoPath());
+                            r.setUsuario(reporteSelected.getUsuario());
+                            r.setStatus("Atendido");
+                            databaseReference.child("Reportes").child(r.getPhotoPath()).setValue(r);
+                            Toast.makeText(getContext(),"Reporte Atendido",Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    dialogo.setNegativeButton("Eliminar Reporte", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Reportes r = new Reportes();
+                            r.setPhotoPath(reporteSelected.getPhotoPath());
+                            databaseReference.child("Reportes").child(r.getPhotoPath()).removeValue();
+                            Toast.makeText(getContext(), "Eliminado", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
                 dialogo.show();
-
             }
         });
 

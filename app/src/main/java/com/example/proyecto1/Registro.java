@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class Registro extends AppCompatActivity {
 
@@ -120,6 +121,7 @@ public class Registro extends AppCompatActivity {
                     usu.setTelefono(tel.getText().toString());
                     usu.setTipo(tipo);
                     usu.setUsuario(us.getText().toString());
+                    usu.setId(id);
                     databaseReference.child("Usuarios").child(id).setValue(usu);
 
                     FirebaseUser user = firebaseAuth.getCurrentUser();
