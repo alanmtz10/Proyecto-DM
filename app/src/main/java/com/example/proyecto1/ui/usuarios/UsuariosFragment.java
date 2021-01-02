@@ -131,14 +131,14 @@ public class UsuariosFragment extends Fragment {
                         }
                         databaseReference.child("Usuarios").child(u.getId()).setValue(u);
                         Toast.makeText(getContext(),"Rango Actualizado",Toast.LENGTH_LONG).show();
-
+                        listarDatos();
                     }
                 });
                 dialogo.setNegativeButton("Eliminar Usuario", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         user=firebaseAuth.getCurrentUser();
-                        //databaseReference.child("Usuarios").child(u.getId()).removeValue();
+                        databaseReference.child("Usuarios").child(u.getId()).removeValue();
                         databaseReference.child("Usuarios").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -169,19 +169,17 @@ public class UsuariosFragment extends Fragment {
                                                             @Override
                                                             public void onComplete(@NonNull Task<AuthResult> task) {
                                                                 if (task.isSuccessful()){
+                                                                    listarDatos();
                                                                 }
                                                             }
                                                         });
                                                         }
                                                     });
-
                                                 }
                                             });
                                         }
                                     }
                                 });
-
-
                             }
 
                             @Override
