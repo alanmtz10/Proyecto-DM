@@ -27,7 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Login extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    FirebaseDatabase firebaseDatabase;
+    FirebaseDatabase firebaseDatabase; 
     DatabaseReference databaseReference;
 
     EditText correo, contra;
