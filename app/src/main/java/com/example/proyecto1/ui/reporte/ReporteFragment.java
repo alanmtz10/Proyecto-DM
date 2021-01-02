@@ -268,7 +268,7 @@ public class ReporteFragment extends Fragment implements AdapterView.OnItemSelec
 
     public void getFecha() {
 
-        SimpleDateFormat fecha = new SimpleDateFormat("d/M/y", Locale.getDefault());
+        SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/YYYY", Locale.getDefault());
         String fechaString = fecha.format(new Date());
 
         this.fecha.setText(fechaString);
@@ -276,7 +276,7 @@ public class ReporteFragment extends Fragment implements AdapterView.OnItemSelec
     }
 
     public void getUbicacion() {
-        Toast.makeText(getContext(), "Metodo ubicacion", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "Ubicación Obtenida", Toast.LENGTH_LONG).show();
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this.getActivity(), new String[]
@@ -288,7 +288,7 @@ public class ReporteFragment extends Fragment implements AdapterView.OnItemSelec
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
-                    ubicacion.setText("lat: " + location.getLatitude() + "      lon: " + location.getLongitude());
+                    ubicacion.setText("lat: " + location.getLatitude() + "\r\n"+"lon: " + location.getLongitude());
                 }
             }
         });

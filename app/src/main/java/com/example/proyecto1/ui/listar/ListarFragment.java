@@ -121,12 +121,12 @@ public class ListarFragment extends Fragment {
                 reporteSelected = (Reportes) parent.getItemAtPosition(position);
                 ArrayList<String> ListData = new ArrayList<>();
                 String item = "";
-                        item += "Id:    "+ reporteSelected.getPhotoPath()+"\r\n";
-                        item += "Anomalía: "+ reporteSelected.getAnomalia()+"\r\n";
-                        item += "Descripción: "+ reporteSelected.getDescripcion()+"\r\n";
-                        item += "Fecha:     "+ reporteSelected.getFecha()+"\r\n";
-                        item += "Ubicación: "+ reporteSelected.getUbicacion()+"\r\n";
-                        item += "Estado: "+ reporteSelected.getStatus()+"\r\n";
+                        item += "ID: "+ reporteSelected.getPhotoPath()+"\r\n";
+                        item += "ANOMALÍA:      "+ reporteSelected.getAnomalia()+"\r\n";
+                        item += "DESCRIPCIÓN: "+ reporteSelected.getDescripcion()+"\r\n";
+                        item += "FECHA:              "+ reporteSelected.getFecha()+"\r\n";
+                        item += "UBICACIÓN:     "+ reporteSelected.getUbicacion()+"\r\n";
+                        item += "ESTADO:           "+ reporteSelected.getStatus()+"\r\n";
                         ListData.add(item);
 
                 View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_reporte, null);
@@ -169,7 +169,7 @@ public class ListarFragment extends Fragment {
                             Reportes r = new Reportes();
                             r.setPhotoPath(reporteSelected.getPhotoPath());
                             databaseReference.child("Reportes").child(r.getPhotoPath()).removeValue();
-                            Toast.makeText(getContext(), "Eliminado", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Reporte Eliminado", Toast.LENGTH_LONG).show();
                         }
                     });
                 }

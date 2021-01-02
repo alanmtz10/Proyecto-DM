@@ -71,6 +71,6 @@ public class Reportes {
     }
 
     public String toString(){
-        return anomalia+" "+photoPath+" "+fecha;
+        return anomalia+"\r\n"+fecha +"\r\n"+status;
     }
 }
