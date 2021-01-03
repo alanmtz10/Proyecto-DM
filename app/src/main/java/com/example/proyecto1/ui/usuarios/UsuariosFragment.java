@@ -54,17 +54,10 @@ public class UsuariosFragment extends Fragment {
 
     List<Usuarios> ListaUsuarios = new ArrayList<Usuarios>();
 
-    ArrayList<String> imagenes;
-
     ArrayAdapter<Usuarios> arrayAdapterUsuario;
     Usuarios usuarioSelected;
 
     ListView lUsuarios;
-
-    private FirebaseStorage storage;
-    StorageReference storageReference;
-
-
 
     private UsuariosViewModel mViewModel;
 
@@ -103,9 +96,8 @@ public class UsuariosFragment extends Fragment {
                 item += "EDAD:                  "+ usuarioSelected.getEdad()+" años \r\n";
                 item += "TELÉFONO:        "+ usuarioSelected.getTelefono()+"\r\n";
                 ListData.add(item);
-                View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_reporte, null);
-                ((TextView) dialogView.findViewById(R.id.tvInfoReporte)).setText(item);
-                ImageView ivImagen = dialogView.findViewById(R.id.ivFotoReporte);
+                View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_usuario, null);
+                ((TextView) dialogView.findViewById(R.id.tvInfoUsuarios)).setText(item);
                 AlertDialog.Builder dialogo = new AlertDialog.Builder(getContext());
                 dialogo.setTitle("Usuario");
                 dialogo.setView(dialogView);
@@ -122,7 +114,6 @@ public class UsuariosFragment extends Fragment {
                 dialogo.setPositiveButton("Cambiar Rango", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                         if (usuarioSelected.getTipo().toUpperCase().equals("USUARIO")){
                             u.setTipo("Administrador");
                         }

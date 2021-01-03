@@ -2,6 +2,7 @@ package com.example.proyecto1.ui.listar;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.example.proyecto1.ui.fbbd.Reportes;
 import com.example.proyecto1.ui.fbbd.Usuarios;
 import com.example.proyecto1.ui.listar.ListarViewModel;
@@ -57,18 +59,13 @@ public class ListarFragment extends Fragment {
 
     List<Reportes> ListaReportes = new ArrayList<Reportes>();
 
-    ArrayList<String> imagenes;
-
     ArrayAdapter<Reportes> arrayAdapterReportes;
     Reportes reporteSelected;
 
     ListView lReportes;
 
-    private FirebaseStorage storage;
+    FirebaseStorage storage;
     StorageReference storageReference, imageref;
-
-    Long img;
-
 
     private ListarViewModel listarViewModel;
 
@@ -129,16 +126,12 @@ public class ListarFragment extends Fragment {
                         item += "ESTADO:           "+ reporteSelected.getStatus()+"\r\n";
                         ListData.add(item);
 
+                imageref = storageReference.child(reporteSelected.getPhotoPath()+ ".jpg");
+
                 View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_reporte, null);
                 ((TextView) dialogView.findViewById(R.id.tvInfoReporte)).setText(item);
                 ImageView ivImagen = dialogView.findViewById(R.id.ivFotoReporte);
-                try{
-                    descargarImg();
-
-                }catch (Exception e){
-                    Toast.makeText(getContext(),"Error con la foto",Toast.LENGTH_LONG).show();
-                }
-                //cargarImagen(imagenes.get(position), ivImagen);
+                Glide.with(getContext()).load(imageref).into(ivImagen);
                 AlertDialog.Builder dialogo = new AlertDialog.Builder(getContext());
                 dialogo.setTitle("Reportes");
                 dialogo.setView(dialogView);
@@ -148,30 +141,46 @@ public class ListarFragment extends Fragment {
                 else
                 {
                     dialogo.setNeutralButton("Aceptar", null);
-                    dialogo.setPositiveButton("Atender Reporte", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Reportes r = new Reportes();
-                            r.setAnomalia(reporteSelected.getAnomalia());
-                            r.setDescripcion(reporteSelected.getDescripcion());
-                            r.setUbicacion(reporteSelected.getUbicacion());
-                            r.setFecha(reporteSelected.getFecha());
-                            r.setPhotoPath(reporteSelected.getPhotoPath());
-                            r.setUsuario(reporteSelected.getUsuario());
-                            r.setStatus("Atendido");
-                            databaseReference.child("Reportes").child(r.getPhotoPath()).setValue(r);
-                            Toast.makeText(getContext(),"Reporte Atendido",Toast.LENGTH_LONG).show();
-                        }
-                    });
-                    dialogo.setNegativeButton("Eliminar Reporte", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Reportes r = new Reportes();
-                            r.setPhotoPath(reporteSelected.getPhotoPath());
-                            databaseReference.child("Reportes").child(r.getPhotoPath()).removeValue();
-                            Toast.makeText(getContext(), "Reporte Eliminado", Toast.LENGTH_LONG).show();
-                        }
-                    });
+                    if (reporteSelected.getStatus().toUpperCase().equals("PENDIENTE")){
+                        dialogo.setPositiveButton("Atender Reporte", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Reportes r = new Reportes();
+                                r.setAnomalia(reporteSelected.getAnomalia());
+                                r.setDescripcion(reporteSelected.getDescripcion());
+                                r.setUbicacion(reporteSelected.getUbicacion());
+                                r.setFecha(reporteSelected.getFecha());
+                                r.setPhotoPath(reporteSelected.getPhotoPath());
+                                r.setUsuario(reporteSelected.getUsuario());
+                                r.setStatus("Atendido");
+                                databaseReference.child("Reportes").child(r.getPhotoPath()).setValue(r);
+                                Toast.makeText(getContext(),"Reporte Atendido",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                    else
+                    {
+                        dialogo.setNegativeButton("Eliminar Reporte", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                imageref.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Reportes r = new Reportes();
+                                        r.setPhotoPath(reporteSelected.getPhotoPath());
+                                        databaseReference.child("Reportes").child(r.getPhotoPath()).removeValue();
+                                        Toast.makeText(getContext(),"Reporte Eliminado",Toast.LENGTH_LONG).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getContext(),"Error al eliminar la foto",Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
+                        });
+                    }
+
                 }
                 dialogo.show();
             }
@@ -199,28 +208,6 @@ public class ListarFragment extends Fragment {
             }
         });
     }
-
-    public void descargarImg () throws IOException {
-
-        imageref = storageReference.child(reporteSelected.getPhotoPath()+ ".jpg");
-        File localFile = File.createTempFile("images","jpg");
-
-        imageref.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>(){
-
-            @Override
-            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(getContext(),"Imagen Descargada",Toast.LENGTH_LONG).show();
-            }
-        }).addOnFailureListener(new OnFailureListener(){
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(),"Error en descarga",Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-
-
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getActivity().getMenuInflater().inflate(R.menu.main, menu);
