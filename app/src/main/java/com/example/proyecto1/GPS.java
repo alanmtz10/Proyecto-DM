@@ -24,7 +24,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-public class GPS extends FragmentActivity implements OnMapReadyCallback {
+public class GPS extends FragmentActivity implements OnMapReadyCallback{
+
 
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -34,6 +35,7 @@ public class GPS extends FragmentActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_g_p_s);
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLastLocation();
 
@@ -76,7 +78,7 @@ public class GPS extends FragmentActivity implements OnMapReadyCallback {
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Aqui Estoy");
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,5));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,18));
         googleMap.addMarker(markerOptions);
     }
 

@@ -173,7 +173,7 @@ public class ReporteFragment extends Fragment implements AdapterView.OnItemSelec
                 getFecha();
                 break;
             case R.id.btnUbicacion:
-                Intent intent = new Intent(getContext(), GPS.class);
+                Intent intent = new Intent(v.getContext(), GPS.class);
                 startActivity(intent);
                 getUbicacion();
                 break;
