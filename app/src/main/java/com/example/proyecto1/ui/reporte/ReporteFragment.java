@@ -29,6 +29,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.proyecto1.GPS;
 import com.example.proyecto1.R;
 import com.example.proyecto1.ui.fbbd.Reportes;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -172,6 +173,8 @@ public class ReporteFragment extends Fragment implements AdapterView.OnItemSelec
                 getFecha();
                 break;
             case R.id.btnUbicacion:
+                Intent intent = new Intent(getContext(), GPS.class);
+                startActivity(intent);
                 getUbicacion();
                 break;
             case R.id.imagenCamara:

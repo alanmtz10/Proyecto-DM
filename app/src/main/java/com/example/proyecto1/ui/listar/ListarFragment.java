@@ -155,6 +155,7 @@ public class ListarFragment extends Fragment {
                                 r.setStatus("Atendido");
                                 databaseReference.child("Reportes").child(r.getPhotoPath()).setValue(r);
                                 Toast.makeText(getContext(),"Reporte Atendido",Toast.LENGTH_LONG).show();
+                                listarDatos();
                             }
                         });
                     }
@@ -170,6 +171,7 @@ public class ListarFragment extends Fragment {
                                         r.setPhotoPath(reporteSelected.getPhotoPath());
                                         databaseReference.child("Reportes").child(r.getPhotoPath()).removeValue();
                                         Toast.makeText(getContext(),"Reporte Eliminado",Toast.LENGTH_LONG).show();
+                                        listarDatos();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
