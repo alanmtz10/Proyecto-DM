@@ -18,7 +18,14 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.proyecto1.Login;
 import com.example.proyecto1.R;
 import com.example.proyecto1.ui.fbbd.Usuarios;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -29,6 +36,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     TextView usuario;
 
     FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     Button btnCerrar;
 
@@ -43,10 +52,32 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         });
 
         usuario = root.findViewById(R.id.usuarioHome);
-
-        firebaseAuth=FirebaseAuth.getInstance();
         btnCerrar = root.findViewById(R.id.btnCerrarS);
         btnCerrar.setOnClickListener(this);
+
+        FirebaseApp.initializeApp(getContext());
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        firebaseAuth=FirebaseAuth.getInstance();
+
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        String UID=currentUser.getUid();
+        databaseReference.child("Usuarios").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Usuarios us = snapshot.getValue(Usuarios.class);
+                if (us.getTipo().equals("Usuario")){
+                    usuario.setText(us.getUsuario());
+                }else{
+                    usuario.setText(us.getUsuario()+"\r\n"+"Administrador");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         return root;
 
