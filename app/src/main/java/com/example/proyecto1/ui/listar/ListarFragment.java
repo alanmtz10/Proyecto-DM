@@ -2,6 +2,8 @@ package com.example.proyecto1.ui.listar;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -127,11 +129,25 @@ public class ListarFragment extends Fragment {
                         ListData.add(item);
 
                 imageref = storageReference.child(reporteSelected.getPhotoPath()+ ".jpg");
-
                 View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_reporte, null);
                 ((TextView) dialogView.findViewById(R.id.tvInfoReporte)).setText(item);
                 ImageView ivImagen = dialogView.findViewById(R.id.ivFotoReporte);
-                Glide.with(getContext()).load(imageref).into(ivImagen);
+                try {
+                    final File localFile = File.createTempFile("images", "jpg");
+                    imageref.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                            ivImagen.setImageBitmap(bitmap);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                        }
+                    });
+                } catch (IOException e ) {
+                    Toast.makeText(getContext(),"Error al cargar la imagen",Toast.LENGTH_LONG).show();
+                }
                 AlertDialog.Builder dialogo = new AlertDialog.Builder(getContext());
                 dialogo.setTitle("Reportes");
                 dialogo.setView(dialogView);
