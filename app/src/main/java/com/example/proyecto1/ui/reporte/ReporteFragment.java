@@ -101,7 +101,7 @@ public class ReporteFragment extends Fragment implements AdapterView.OnItemSelec
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getContext());
 
-        FirebaseApp.initializeApp(getContext());
+        //FirebaseApp.initializeApp(getContext());
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
@@ -165,6 +165,7 @@ public class ReporteFragment extends Fragment implements AdapterView.OnItemSelec
         switch (v.getId()) {
             case R.id.btnAceptarRep:
                 crearReporte();
+                limpiar();
                 break;
             case R.id.btnCerrarRep:
                 limpiar();
@@ -205,7 +206,7 @@ public class ReporteFragment extends Fragment implements AdapterView.OnItemSelec
 
 
                         databaseReference.child("Reportes").child(id).setValue(reporte);
-                        limpiar();
+
 
                         Toast.makeText(getContext(), "Se almaceno el reporte", Toast.LENGTH_LONG).show();
 

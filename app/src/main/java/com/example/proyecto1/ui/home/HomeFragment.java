@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         btnCerrar = root.findViewById(R.id.btnCerrarS);
         btnCerrar.setOnClickListener(this);
 
-        FirebaseApp.initializeApp(getContext());
+        //FirebaseApp.initializeApp(getContext());
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         firebaseAuth=FirebaseAuth.getInstance();

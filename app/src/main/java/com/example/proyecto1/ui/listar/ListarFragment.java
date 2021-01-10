@@ -83,7 +83,7 @@ public class ListarFragment extends Fragment {
             }
         });
 
-        FirebaseApp.initializeApp(getContext());
+        //FirebaseApp.initializeApp(getContext());
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         firebaseAuth = FirebaseAuth.getInstance();

@@ -71,7 +71,7 @@ public class UsuariosFragment extends Fragment {
         View root= inflater.inflate(R.layout.fragment_usuarios, container, false);
 
         lUsuarios=root.findViewById(R.id.lVUsuarios);
-        FirebaseApp.initializeApp(getContext());
+        //FirebaseApp.initializeApp(getContext());
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         firebaseAuth = FirebaseAuth.getInstance();
