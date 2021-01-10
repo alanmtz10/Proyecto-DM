@@ -165,7 +165,7 @@ public class ReporteFragment extends Fragment implements AdapterView.OnItemSelec
         switch (v.getId()) {
             case R.id.btnAceptarRep:
                 crearReporte();
-                limpiar();
+
                 break;
             case R.id.btnCerrarRep:
                 limpiar();
@@ -185,6 +185,7 @@ public class ReporteFragment extends Fragment implements AdapterView.OnItemSelec
     }
 
     private void crearReporte() {
+
         if (!descripcion.getText().toString().equals("") && !ubicacion.getText().toString().equals("") && !fecha.getText().toString().equals("") && !currentPhotoPath.equals("")) {
 
             String id = UUID.randomUUID().toString();
@@ -207,7 +208,7 @@ public class ReporteFragment extends Fragment implements AdapterView.OnItemSelec
 
                         databaseReference.child("Reportes").child(id).setValue(reporte);
 
-
+                        limpiar();
                         Toast.makeText(getContext(), "Se almaceno el reporte", Toast.LENGTH_LONG).show();
 
 
