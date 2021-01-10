@@ -59,7 +59,12 @@ public class Registro extends AppCompatActivity {
                         contrasenia.getText().toString().equals("")) {
                     Toast.makeText(Registro.this, "Campos incompletos", Toast.LENGTH_SHORT).show();
                 } else {
-                    registrarUsuario();
+                    if (contrasenia.getText().toString().length()<6){
+                        contrasenia.setError("La contraseña debe ser mayor a 6 digitos");
+                    }else {
+                        registrarUsuario();
+                    }
+
                 }
             }
         });
